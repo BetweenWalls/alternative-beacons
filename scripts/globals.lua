@@ -14,20 +14,21 @@ function globals.setup(beacon_prototypes)
   }
 
   local custom_exclusion_ranges = { -- these beacons are given custom exclusion ranges: "strict" ranges disable beacons whose distribution areas overlap them, "solo" means the smallest range for "strict" beacons which is large enough to prevent synergy with other beacons
-    ["ab-focused-beacon"] = {add=1},
-    ["ab-conflux-beacon"] = {add=3},
-    ["ab-hub-beacon"] = {add=20},
-    ["ab-isolation-beacon"] = {add=8, mode="strict"},
-    ["se-basic-beacon"] = {value="solo", mode="strict"},
-    ["se-compact-beacon"] = {value="solo", mode="strict"},
-    ["se-compact-beacon-2"] = {value="solo", mode="strict"},
-    ["se-wide-beacon"] = {value="solo", mode="strict"},
-    ["se-wide-beacon-2"] = {value="solo", mode="strict"},
-    ["ei_copper-beacon"] = {value="solo", mode="strict"},
-    ["ei_iron-beacon"] = {value="solo", mode="strict"},
-    ["el_ki_beacon_entity"] = {value="solo", mode="strict"},
-    ["fi_ki_beacon_entity"] = {value="solo", mode="strict"},
-    ["fu_ki_beacon_entity"] = {value="solo", mode="strict"}
+    ["ab-focused-beacon"] = {add=settings.startup["ab-focused-beacon-exclusion-range"].value},
+    ["ab-node-beacon"] = {add=settings.startup["ab-node-beacon-exclusion-range"].value},
+    ["ab-conflux-beacon"] = {add=settings.startup["ab-conflux-beacon-exclusion-range"].value},
+    ["ab-hub-beacon"] = {add=settings.startup["ab-hub-beacon-exclusion-range"].value},
+    ["ab-isolation-beacon"] = {add=settings.startup["ab-isolation-beacon-exclusion-range"].value, mode="strict"},
+    ["se-basic-beacon"] = { value = "solo", mode = "strict" },
+    ["se-compact-beacon"] = { value = "solo", mode = "strict" },
+    ["se-compact-beacon-2"] = { value = "solo", mode = "strict" },
+    ["se-wide-beacon"] = { value = "solo", mode = "strict" },
+    ["se-wide-beacon-2"] = { value = "solo", mode = "strict" },
+    ["ei_copper-beacon"] = { value = "solo", mode = "strict" },
+    ["ei_iron-beacon"] = { value = "solo", mode = "strict" },
+    ["el_ki_beacon_entity"] = { value = "solo", mode = "strict" },
+    ["fi_ki_beacon_entity"] = { value = "solo", mode = "strict" },
+    ["fu_ki_beacon_entity"] = { value = "solo", mode = "strict" }
     -- entries are added below for: Pyanodons AM-FM beacons, Bob's "beacon-3" (and mini/micro versions), productivity/speed beacons from Advanced Modules, beacons from Fast Furnaces, "beacon3", and "productivity-beacon"
   }
   local updated_repeating_beacons = { -- these beacons don't disable any of the beacons in the list associated with them

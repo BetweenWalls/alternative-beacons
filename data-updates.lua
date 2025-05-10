@@ -4,10 +4,11 @@
 -- TODO: Move new files (globals, adjustments, whatever) into a single extra folder instead of having them spread between scripts/prototypes/whatever?
 local adjustments = require("prototypes/adjustments")
 local custom_exclusion_ranges = { -- these beacons are given custom exclusion ranges: "strict" ranges disable beacons whose distribution areas overlap them, "solo" means the smallest range for "strict" beacons which is large enough to prevent synergy with other beacons; the same values are also provided in control.lua
-  ["ab-focused-beacon"] = {add=1},
-  ["ab-conflux-beacon"] = {add=3},
-  ["ab-hub-beacon"] = {add=20},
-  ["ab-isolation-beacon"] = {add=8, mode="strict"},
+  ["ab-focused-beacon"] = {add=startup["ab-focused-beacon-exclusion-range"].value},
+  ["ab-node-beacon"] = {add=startup["ab-node-beacon-exclusion-range"].value},
+  ["ab-conflux-beacon"] = {add=startup["ab-conflux-beacon-exclusion-range"].value},
+  ["ab-hub-beacon"] = {add=startup["ab-hub-beacon-exclusion-range"].value},
+  ["ab-isolation-beacon"] = {add=startup["ab-isolation-beacon-exclusion-range"].value, mode="strict"},
   ["se-basic-beacon"] = {value="solo", mode="strict"},
   ["se-compact-beacon"] = {value="solo", mode="strict"},
   ["se-compact-beacon-2"] = {value="solo", mode="strict"},

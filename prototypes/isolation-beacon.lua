@@ -71,14 +71,15 @@ local beacon = {
   selection_box = { { -2.5, -2.5 }, { 2.5, 2.5 } },
   drawing_box_vertical_extension = 3.3,
   allowed_effects = {"consumption", "speed", "pollution"},
-  distribution_effectivity = 0.5,
-  distribution_effectivity_bonus_per_quality_level = 0.1,
-  profile = {1,0},
+  distribution_effectivity = settings.startup["ab-isolation-beacon-distribution-effectivity"].value,
+  distribution_effectivity_bonus_per_quality_level = settings.startup
+      ["ab-isolation-beacon-distribution-effectivity-bonus-per-quality-level"].value,
+  profile = { 1, 0 },
   beacon_counter = "same_type",
-  supply_area_distance = 30, -- extends from edge of collision box (65x65)
+  supply_area_distance = settings.startup["ab-isolation-beacon-supply-area-distance"].value, -- extends from edge of collision box (65x65)
   -- exclusion_area_distance = 38 (81x81 strict; hardcoded in control.lua)
-  module_slots = 10,
-  icons_positioning = {{
+  module_slots = settings.startup["ab-isolation-beacon-module-slots"].value,
+  icons_positioning = { {
     inventory_index = defines.inventory.beacon_modules,
     shift = {0, 0.5},
     max_icons_per_row = 5,
@@ -127,6 +128,10 @@ local beacon = {
 
 if not feature_flags["freezing"] then beacon.heating_energy = nil end
 if not feature_flags["quality"] then beacon.distribution_effectivity_bonus_per_quality_level = nil end
+
+if settings.startup["ab-isolation-beacon-size-six"] then
+  beacon.collision_box = { { -2.75, -2.75 }, { 2.75, 2.75 } }
+end
 
 local technology = {{
   icon = "__alternative-beacons__/graphics/tech-isolation.png",

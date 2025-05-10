@@ -1,5 +1,7 @@
 --- settings.lua
 
+require("settings-beacons")
+
 data:extend ({
     {
         type = "bool-setting",
