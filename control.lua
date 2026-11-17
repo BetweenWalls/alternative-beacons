@@ -241,9 +241,9 @@ function check_nearby(entity, behavior)
         if behavior ~= "added" then removed_id = entity.unit_number end
         if use_repeating_behavior(entity, nearby_entity) == false then -- some beacons don't affect each other
           if behavior == "added" then
-            nearby_entity.active = false
+            nearby_entity.disabled_by_script = true
           else
-            nearby_entity.active = true
+            nearby_entity.disabled_by_script = false
           end
         end
         check_self(nearby_entity, removed_id, wasEnabled)
@@ -317,7 +317,7 @@ function check_self(entity, removed_id, wasEnabled)
   end
   if (isEnabled == false and (entity.name == "ei_copper-beacon" or entity.name == "ei_iron-beacon")) then isEnabled = true end
   if (entity.name == "base-power-crystal-1" or entity.name == "base-power-crystal-2" or entity.name == "base-power-crystal-3" or entity.name == "base-power-crystal-negative-1" or entity.name == "base-power-crystal-negative-2") then isEnabled = true end
-  entity.active = isEnabled
+  entity.disabled_by_script = not isEnabled
   handle_change(entity, wasEnabled, isEnabled)
 end
 
@@ -328,13 +328,13 @@ function handle_change(entity, wasEnabled, isEnabled)
     if storage.offline_beacons[entity.unit_number] == nil then
       add_beacon_warning(entity)
       for _, player in pairs(entity.force.players) do
-        player.create_local_flying_text{text={"description.ab_beacon_deactivated"}, surface=entity.surface, position=entity.position, color={1,1,1,1}, time_to_live=250, speed=50}
+        player.create_local_flying_text{text={"description.ab_beacon_deactivated"}, surface=entity.surface, position=entity.position, color={1,1,1,1}, time_to_live=200, speed=3}
         add_beacon_alert(entity, player)
       end
     end
   elseif (wasEnabled == false and isEnabled == true) then -- beacon activated
     for _, player in pairs(entity.force.players) do
-      player.create_local_flying_text{text={"description.ab_beacon_activated"}, surface=entity.surface, position=entity.position, color={1,1,1,1}, time_to_live=250, speed=50}
+      player.create_local_flying_text{text={"description.ab_beacon_activated"}, surface=entity.surface, position=entity.position, color={1,1,1,1}, time_to_live=200, speed=3}
     end
     remove_beacon_warning(entity)
   elseif (isEnabled == false and storage.offline_beacons[entity.unit_number] == nil) then -- adds icons to old deactivated beacons (may not be necessary)
